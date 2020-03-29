@@ -55,7 +55,11 @@ function createModel() {
     const model = tf.sequential();
 
     // Add a single hidden layer
+    // units - size of weights matrix
+    // dense layers use bias by default
     model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+
+    model.add(tf.layers.dense({units: 20, activation: 'relu'})); // or activation: 'sigmoid',
 
     // Add an output layer
     model.add(tf.layers.dense({units: 1, useBias: true}));
@@ -114,7 +118,7 @@ async function trainModel(model, inputs, labels) {
     });
 
     const batchSize = 32;
-    const epochs = 50;
+    const epochs = 30;
 
     return await model.fit(inputs, labels, {
         batchSize,
